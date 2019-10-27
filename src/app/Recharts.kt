@@ -14,9 +14,127 @@ external val CartesianGrid : RClass<CartesianGridProps>
 external val Tooltip : RClass<TooltipProps>
 external val Legend : RClass<LegendProps>
 
+// Scatter Chart
+external val Scatter : RClass<ScatterProps>
+external val ScatterChart : RClass<CategoricalChartWrapper>
+
 // Bar Chart
 external val BarChart : RClass<CategoricalChartWrapper>
 external val Bar : RClass<BarProps>
+
+external val ResponsiveContainer : RClass<ResponsiveContainerProps>
+
+external interface ResponsiveContainerProps : RProps{
+    var aspect: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var width: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var height: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var minHeight: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var minWidth: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var maxHeight: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var children: Any
+    var debounce: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var id: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var className: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+}
+
+external interface ScatterProps : EventAttributes, RProps, Animatable {
+    var xAxisId: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var yAxisId: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var zAxisId: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var line: dynamic /* Boolean | Any? | RechartsFunction | React.ReactElement */
+        get() = definedExternally
+        set(value) = definedExternally
+    var lineType: dynamic /* 'joint' | 'fitting' */
+        get() = definedExternally
+        set(value) = definedExternally
+    var lineJointType: dynamic /* 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | CurveFactory */
+        get() = definedExternally
+        set(value) = definedExternally
+    var legendType: dynamic /* 'plainline' | 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'none' */
+        get() = definedExternally
+        set(value) = definedExternally
+    var activeIndex: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var activeShape: dynamic /* Any? | RechartsFunction | React.ReactElement */
+        get() = definedExternally
+        set(value) = definedExternally
+    var shape: dynamic /* 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | React.ReactElement | ContentRenderer<Any> */
+        get() = definedExternally
+        set(value) = definedExternally
+    var points: Array<ScatterPoint>?
+        get() = definedExternally
+        set(value) = definedExternally
+    var hide: Boolean?
+        get() = definedExternally
+        set(value) = definedExternally
+    var data: Array<Any?>?
+        get() = definedExternally
+        set(value) = definedExternally
+    var dataKey: dynamic /* String | Number | (dataObject: Any) -> dynamic */
+        get() = definedExternally
+        set(value) = definedExternally
+    var name: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var id: String?
+        get() = definedExternally
+        set(value) = definedExternally
+}
+
+external interface ScatterPoint {
+    var cx: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var cy: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var size: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var node: `T$3`?
+        get() = definedExternally
+        set(value) = definedExternally
+    var payload: Any?
+        get() = definedExternally
+        set(value) = definedExternally
+}
+
+external interface `T$3` {
+    var x: dynamic /* Number | String */
+        get() = definedExternally
+        set(value) = definedExternally
+    var y: dynamic /* Number | String */
+        get() = definedExternally
+        set(value) = definedExternally
+    var z: dynamic /* Number | String */
+        get() = definedExternally
+        set(value) = definedExternally
+}
 
 external interface BarProps : RProps, Animatable, EventAttributes {
     var dataKey: dynamic /* String | Number | (dataObject: Any) -> dynamic */
