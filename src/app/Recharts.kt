@@ -5,7 +5,7 @@ package  app
 import react.*
 import kotlin.js.*
 
-
+// Line Chart
 external val Line : RClass<LineProps>
 external val LineChart : RClass<CategoricalChartWrapper>
 external val XAxis : RClass<XAxisProps>
@@ -14,7 +14,153 @@ external val CartesianGrid : RClass<CartesianGridProps>
 external val Tooltip : RClass<TooltipProps>
 external val Legend : RClass<LegendProps>
 
-external interface TooltipProps : RProps {
+// Bar Chart
+external val BarChart : RClass<CategoricalChartWrapper>
+external val Bar : RClass<BarProps>
+
+external interface BarProps : RProps, Animatable, EventAttributes {
+    var dataKey: dynamic /* String | Number | (dataObject: Any) -> dynamic */
+    var className: String?
+        get() = definedExternally
+        set(value) = definedExternally
+    var fill: String?
+        get() = definedExternally
+        set(value) = definedExternally
+    var radius: dynamic /* Number | Array<Number> */
+        get() = definedExternally
+        set(value) = definedExternally
+    var layout: dynamic /* 'horizontal' | 'vertical' */
+        get() = definedExternally
+        set(value) = definedExternally
+    var xAxisId: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var yAxisId: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var yAxis: Any?
+        get() = definedExternally
+        set(value) = definedExternally
+    var xAxis: Any?
+        get() = definedExternally
+        set(value) = definedExternally
+    var stackId: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var barSize: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var unit: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var name: dynamic /* String | Number */
+        get() = definedExternally
+        set(value) = definedExternally
+    var legendType: dynamic /* 'plainline' | 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye' | 'none' */
+        get() = definedExternally
+        set(value) = definedExternally
+    var minPointSize: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var maxBarSize: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var hide: Boolean?
+        get() = definedExternally
+        set(value) = definedExternally
+    var shape: dynamic /* React.ReactElement | ContentRenderer<RectangleProps> */
+        get() = definedExternally
+        set(value) = definedExternally
+    var data: Array<BarData>?
+        get() = definedExternally
+        set(value) = definedExternally
+    var background: dynamic /* Boolean | React.ReactElement | ContentRenderer<Any> | Any? */
+        get() = definedExternally
+        set(value) = definedExternally
+    var label: dynamic /* Boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<Any> */
+        get() = definedExternally
+        set(value) = definedExternally
+    var id: String?
+        get() = definedExternally
+        set(value) = definedExternally
+}
+
+external interface EventAttributes {
+    var onClick: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseDown: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseUp: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseOver: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseMove: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseOut: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseEnter: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onMouseLeave: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onTouchEnd: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onTouchMove: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onTouchStart: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onTouchCancel: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+}
+
+external interface BarData {
+    var x: Number
+    var y: Number
+    var width: Number
+    var height: Number
+    var radius: dynamic /* Number | Array<Any> */
+    var value: dynamic /* Number | String | Array<Any> */
+}
+
+external interface Animatable {
+    var onAnimationStart: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var onAnimationEnd: dynamic
+        get() = definedExternally
+        set(value) = definedExternally
+    var animationId: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var isAnimationActive: Boolean?
+        get() = definedExternally
+        set(value) = definedExternally
+    var isUpdateAnimationActive: Boolean?
+        get() = definedExternally
+        set(value) = definedExternally
+    var animationBegin: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var animationDuration: Number?
+        get() = definedExternally
+        set(value) = definedExternally
+    var animationEasing: dynamic /* 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' */
+        get() = definedExternally
+        set(value) = definedExternally
+}
+
+external interface TooltipProps : RProps, Animatable{
     var content: dynamic /* React.ReactElement | React.StatelessComponent<Any> | ContentRenderer<TooltipProps> */
         get() = definedExternally
         set(value) = definedExternally
@@ -387,35 +533,6 @@ external interface Margin {
     var left: Number
 }
 
-external interface Animatable {
-    var onAnimationStart: dynamic
-        get() = definedExternally
-        set(value) = definedExternally
-    var onAnimationEnd: dynamic
-        get() = definedExternally
-        set(value) = definedExternally
-    var animationId: Number?
-        get() = definedExternally
-        set(value) = definedExternally
-    var isAnimationActive: Boolean?
-        get() = definedExternally
-        set(value) = definedExternally
-    var isUpdateAnimationActive: Boolean?
-        get() = definedExternally
-        set(value) = definedExternally
-    var animationBegin: Number?
-        get() = definedExternally
-        set(value) = definedExternally
-    var animationDuration: Number?
-        get() = definedExternally
-        set(value) = definedExternally
-    var animationEasing: dynamic /* 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' */
-        get() = definedExternally
-        set(value) = definedExternally
-}
-
-
-
 external interface CategoricalChartWrapper: RProps {
     var syncId: dynamic /* String | Number */
         get() = definedExternally
@@ -491,7 +608,7 @@ external interface CategoricalChartWrapper: RProps {
         set(value) = definedExternally
 }
 
-external interface LineProps: RProps {
+external interface LineProps: RProps, Animatable, EventAttributes{
     var className: String?
         get() = definedExternally
         set(value) = definedExternally
