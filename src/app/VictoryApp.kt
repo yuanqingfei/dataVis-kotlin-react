@@ -1,60 +1,61 @@
 package app
 
+import kotlinx.html.SVG
 import react.*
+import react.dom.svg
 import victory.*
+import kotlin.js.Date
 import kotlin.js.Json
 import kotlin.js.json
 
 class VictoryApp : RComponent<RProps, RState>() {
-    //  <VictoryChart
-    //    domainPadding={{x: 40}}
-    //  >
-    //    <VictoryBar
-    //      data={[
-    //        { experiment: "trial 1", expected: 3.75, actual: 3.21 },
-    //        { experiment: "trial 2", expected: 3.75, actual: 3.38 },
-    //        { experiment: "trial 3", expected: 3.75, actual: 2.05 },
-    //        { experiment: "trial 4", expected: 3.75, actual: 3.71 }
-    //      ]}
-    //      x="experiment"
-    //      y={(d) => (d.actual / d.expected) * 100}
-    //    />
-    //    <VictoryAxis
-    //      label="experiment"
-    //      style={{
-    //        axisLabel: { padding: 30 }
-    //      }}
-    //    />
-    //    <VictoryAxis dependentAxis
-    //      label="percent yield"
-    //      style={{
-    //        axisLabel: { padding: 40 }
-    //      }}
-    //    />
-    //</VictoryChart>
-    val data: Array<Any>? = arrayOf(json(Pair("experiment", "trial 1"), Pair("expected", 3.75), Pair("actual", 3.21)),
-            json(Pair("experiment", "trial 2"), Pair("expected", 3.75), Pair("actual", 3.38)),
-            json(Pair("experiment", "trial 3"), Pair("expected", 3.75), Pair("actual", 2.05)),
-            json(Pair("experiment", "trial 4"), Pair("expected", 3.75), Pair("actual", 3.71)))
-//    fun mapY(d: dynamic) = (d.actual / d.expected) * 100
+
     override fun RBuilder.render() {
+        //<VictoryChart domain={{ x: [0, 4] }}>
+        //  <VictoryBar
+        //    style={{ data: { fill: "red" } }}
+        //    data={[
+        //      { x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 6 }
+        //    ]}
+        //  />
+        //  <VictoryLine
+        //    style={{ data: { stroke: "blue", strokeWidth: 5 } }}
+        //    y={(d) => d.x}
+        //  />
+        //</VictoryChart>
         VictoryChart{
-            attrs.domainPadding = Pair("x", 40)
+//            attrs.domain = arrayOf(0,6)
+            attrs.domainPadding = json(Pair("x", 10), Pair("y", arrayOf(0, 10)))
             VictoryBar{
-                attrs.data = data
-                attrs.x = "experiment"
-                attrs.y = {d: Json -> (d.get("actual") as Double / d.get("expected") as Double) * 100}
+                attrs.data = arrayOf(
+                        json(Pair("x", 1), Pair("y", 2)),
+                        json(Pair("x", 2), Pair("y", 3)),
+                        json(Pair("x", 3), Pair("y", 6)))
+//                attrs.x = "x"
+//                attrs.y = "y"
+//                attrs.alignment = "middle"
+//                attrs.barRatio = 0.1
+                // style doesn't work
+                attrs.style = js("""{{ data: {fill:  "blue"} }}""") as? VictoryStyleInterface
+//                        VictoryStyleClass(data=json(Pair("fill", "blue")), parent = null, labels = null)
             }
-            VictoryAxis{
-                attrs.label = "experiment"
-                attrs.style = json(Pair("axisLabel", Pair("padding", 30)))
-            }
-            VictoryAxis{
-                attrs.label = "percent yield"
-                attrs.style = json(Pair("axisLabel", Pair("padding", 40)))
+            VictoryLine{
+                attrs.data = arrayOf(
+                        json(Pair("x", 1), Pair("y", 2)),
+                        json(Pair("x", 2), Pair("y", 3)),
+                        json(Pair("x", 3), Pair("y", 6)))
+                attrs.style = js("""{{ data: { stroke: "blue"} }}""")
+
+                // lambda function doesn't work
+//                attrs.y = {d : Pair<String, Int> -> d.second}
             }
         }
     }
 }
+
+class VictoryStyleClass(parent: VictoryStyleObject?, data: VictoryStyleObject?, labels: VictoryStyleObject?): VictoryStyleInterface{
+}
+
+
 
 fun RBuilder.victoryApp() = child(VictoryApp::class) {}
