@@ -23,31 +23,28 @@ class VictoryApp : RComponent<RProps, RState>() {
         //    y={(d) => d.x}
         //  />
         //</VictoryChart>
+        val data: Array<Any>? = arrayOf(
+                json(Pair("x", 1), Pair("y", 2)),
+                json(Pair("x", 2), Pair("y", 3)),
+                json(Pair("x", 3), Pair("y", 6)));
         VictoryChart{
 //            attrs.domain = arrayOf(0,6)
-            attrs.domainPadding = json(Pair("x", 10), Pair("y", arrayOf(0, 10)))
+            attrs.domainPadding = json(Pair("x", 50), Pair("y", arrayOf(0, 10)))
             VictoryBar{
-                attrs.data = arrayOf(
-                        json(Pair("x", 1), Pair("y", 2)),
-                        json(Pair("x", 2), Pair("y", 3)),
-                        json(Pair("x", 3), Pair("y", 6)))
+                attrs.data = data
 //                attrs.x = "x"
 //                attrs.y = "y"
 //                attrs.alignment = "middle"
-//                attrs.barRatio = 0.1
+                attrs.barRatio = 0.3
                 // style doesn't work
-                attrs.style = js("""{{ data: {fill:  "blue"} }}""") as? VictoryStyleInterface
+                attrs.style = js("""{ data: {fill:  "blue"} }""")
 //                        VictoryStyleClass(data=json(Pair("fill", "blue")), parent = null, labels = null)
             }
             VictoryLine{
-                attrs.data = arrayOf(
-                        json(Pair("x", 1), Pair("y", 2)),
-                        json(Pair("x", 2), Pair("y", 3)),
-                        json(Pair("x", 3), Pair("y", 6)))
-                attrs.style = js("""{{ data: { stroke: "blue"} }}""")
-
-                // lambda function doesn't work
-//                attrs.y = {d : Pair<String, Int> -> d.second}
+                attrs.style = js("""{ data: { stroke: "red", strokeWidth: 5} }""")
+                attrs.data = data
+                // arrow function doesn't work in ES 5.1. So need use anonymous function
+                attrs.y = js("""{function (d){return 3*d.x}}""")
             }
         }
     }
