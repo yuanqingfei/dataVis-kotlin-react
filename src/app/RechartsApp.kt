@@ -1,11 +1,10 @@
 package app
 
 import react.*
-import react.dom.*
-import kotlin.js.Date
+import recharts.*
 import kotlin.js.json
 
-class App : RComponent<RProps, RState>() {
+class RechartsApp : RComponent<RProps, RState>() {
     val myData: Array<Any?> = arrayOf(
             json(Pair("name", "Page A"), Pair("uv", 4000), Pair("pv", 2400), Pair("amt", 2400)),
             json(Pair("name", "Page B"), Pair("uv", 3000), Pair("pv", 1398), Pair("amt", 2210)),
@@ -133,4 +132,4 @@ class App : RComponent<RProps, RState>() {
     }
 }
 
-fun RBuilder.app() = child(App::class) {}
+fun RBuilder.rechartsApp() = child(RechartsApp::class) {}

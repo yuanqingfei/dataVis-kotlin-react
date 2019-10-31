@@ -1,6 +1,5 @@
 @file:JsModule("recharts")
-
-package  app
+package recharts
 
 import react.*
 import kotlin.js.*
