@@ -10,6 +10,7 @@ fun main(args: Array<String>) {
 
     render(document.getElementById("root")) {
 //        rechartsApp()
-        victoryApp()
+//        victoryApp()
+        victoryApp2()
     }
 }
