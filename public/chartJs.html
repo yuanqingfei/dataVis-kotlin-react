@@ -2,8 +2,7 @@
 <html>
 <head>
     <title> Animation Callbacks </title>
-    <script src="../lib/chartJs/Chart.min.js"></script>
-    <script src="../lib/chartJs/utils.js"></script>
+    <script src="https://npmcdn.com/chart.js/dist/Chart.bundle.js"></script>
     <style>
         canvas {
             -moz-user-select: none;
@@ -15,126 +14,107 @@
 
 <body>
 <div style="width: 75%;">
-    <canvas id="canvas"></canvas>
+    <canvas id="chart"></canvas>
 </div>
-<br>
-<br>
-<button id="randomizeData">Randomize Data</button>
+
 <script>
-        //value for x-axis
-        var arrayLabel = ["calm", "happy", "angry", "disgust"];
+const CHART = document.getElementById("chart");
 
-        //colours for each bar
-        var arrayColor = ['red', 'green', 'yellow', 'blue'];
+Chart.defaults.global.animation.duration = 3000;
 
-        //Let's arrayData[] be the initial data set
-        var arrayData = [0.1, 0.4, 0.3, 0.6];
+Chart.plugins.register({
+  beforeUpdate: function(chart) {
+  	// If this option is true, do the sorting. We only do this when the button is pressed
+    if (chart.options.sort) {
+    	// This gets the dataArray for the first dataset
+      let dataArray = chart.data.datasets[0].data;
 
-        function sortAll(myData){
-            var arrayOfObj = arrayLabel.map(function(d, i) {
-              return {
-                label: d,
-                data: myData[i] || 0,
-                color: arrayColor[i] || 0
-              };
-            });
+     	// We create an array of indexes
+      // [0, 1, 2 ... length - 1]
+      let dataIndexes = dataArray.map((d, i) => i);
 
-            var sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
-              return b.data - a.data;
-            });
+      // We sort these indexes by the data value
+      // If the data is [10, 0, 30, 20]
+      // dataIndexes starts as [0, 1, 2, 3]
+      // and is sorted into [1, 0, 3, 2]
+      dataIndexes.sort((a, b) => {
+        return dataArray[a] - dataArray[b];
+      });
 
-            var newArrayLabel = [];
-            var newArrayData = [];
-            var newArrayColor = [];
-            sortedArrayOfObj.forEach(function(d){
-              newArrayLabel.push(d.label);
-              newArrayData.push(d.data);
-              newArrayColor.push(d.color);
-            });
-            return {
-                newLabel: newArrayLabel,
-                newData: newArrayData,
-                newColor: newArrayColor
-            }
+      // Npw we sort the data array so the chart will have the correct data
+      dataArray.sort((a, b) => a - b);
+
+      // At this point dataIndexes is sorted by value of the data,
+      // so we know how the indexes map to each other
+      // Now we need to sort the bar objects, labels and background colours
+      let meta = chart.getDatasetMeta(0);
+      let newMeta = [];
+      let labels = chart.data.labels;
+      let newLabels = [];
+      let newColors = [];
+
+      meta.data.forEach((bar, i) => {
+      	// The meta.data array has the bars in the old order
+        // so we look up the new index by using the dataIndexes array.
+        // indexOf isn't the most efficient but we have a small number of bars
+      	let newIndex = dataIndexes.indexOf(i);
+
+        // copy the bar to the correct location in the new array
+        newMeta[newIndex] = bar;
+
+        // Copy the label to the new position
+        newLabels[newIndex] = chart.data.labels[i];
+
+        // Copy the color to the new position
+        newColors[newIndex] = chart.data.datasets[0].backgroundColor[i];
+      });
+
+			// update the chart
+      meta.data = newMeta;
+      chart.data.labels = newLabels;
+      chart.data.datasets[0].backgroundColor = newColors;
+    }
+  }
+});
+
+let barChart = new Chart(CHART, {
+  type: 'horizontalBar',
+  data: {
+    labels: ['France', 'United Kingdom', 'USA', 'New Zealand', 'Spain', 'Denmark'],
+    datasets: [{
+      //label: ["Index", "Index2"],
+      backgroundColor: [
+        "#467261",
+        "#556e69",
+        "#555341",
+        "#4e6577",
+        "#537061",
+        "#44656e"
+      ],
+      data: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        ticks: {
+          beginAtZero: true
         }
+      }],
+      yAxes: [{
+        barThickness: 30
+      }]
 
+    }
+  }
+});
 
-        /*Creating the bar chart*/
-        var ctx = document.getElementById("canvas");
-        var barChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: arrayLabel,
-            datasets: [{
-              backgroundColor: arrayColor,
-              label: 'Prediction',
-              data: arrayData
-            }]
-          },
-          options: {
-            scales: {
-              yAxes: [{
-                ticks: {
-                  beginAtZero: true,
-                  min: 0,
-                  max: 1,
-                  stepSize: 0.5,
-                }
-              }]
-            },
-            animation: {
-                duration: 0,
-                easing: 'linear',
-                onProgress: function(animation) {
-
-                },
-                onComplete: function() {
-                    window.setTimeout(function() {
-
-                    }, 0);
-                }
-            }
-          }
-        });
-
-        /*Function to update the bar chart*/
-        function updateBarGraph(chart, labels, color, data) {
-          //chart.data.datasets.pop();
-          //chart.data.datasets.push({
-            //label: label,
-            //backgroundColor: color,
-            //data: data
-          //});
-          chart.data.labels = labels;
-          chart.data.datasets[0].data = data;
-          chart.data.datasets[0].backgroundColor = color
-          chart.update();
-        }
-
-        /*Updating the bar chart with updated data in every second. */
-        setInterval(function() {
-          arrayData = [Math.random(), Math.random(), Math.random(), Math.random()];
-          var sortedData = sortAll(arrayData);
-          arrayData = sortedData.newData;
-          arrayLabel = sortedData.newLabel;
-          arrayColor = sortedData.newColor;
-          updateBarGraph(barChart, arrayLabel, arrayColor, arrayData);
-        }, 5000);
-
-        //window.onload = function() {
-        //  var ctx = document.getElementById('canvas').getContext('2d');
-        //  window.myLine = new Chart(ctx, config);
-        //};
-
-        //document.getElementById('randomizeData').addEventListener('click', function() {
-        //  config.data.datasets.forEach(function(dataset) {
-        //      dataset.data = dataset.data.map(function() {
-        //          return randomScalingFactor();
-        //      });
-        //  });
-
-        //  window.myLine.update();
-        //});
+setInterval(function() {
+  barChart.options.sort = true;
+  barChart.update();
+  barChart.options.sort = false;
+  barChart.data.datasets[0].data = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
+}, 5000);
     </script>
 </body>
 

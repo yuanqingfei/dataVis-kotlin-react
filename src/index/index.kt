@@ -9,8 +9,7 @@ fun main(args: Array<String>) {
     requireAll(require.context("src", true, js("/\\.css$/")))
 
     render(document.getElementById("root")) {
-//        rechartsApp()
-//        victoryApp()
-        victoryApp2()
+        rechartsApp()
+        victoryApp()
     }
 }
