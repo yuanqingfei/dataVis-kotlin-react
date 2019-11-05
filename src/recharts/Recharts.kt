@@ -1,4 +1,5 @@
 @file:JsModule("recharts")
+
 package recharts
 
 import react.*

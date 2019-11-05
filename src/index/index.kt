@@ -1,6 +1,8 @@
 package index
 
-import app.*
+import app.chartJsApp
+import app.rechartsApp
+import app.victoryApp
 import kotlinext.js.*
 import react.dom.*
 import kotlin.browser.*
@@ -9,7 +11,8 @@ fun main(args: Array<String>) {
     requireAll(require.context("src", true, js("/\\.css$/")))
 
     render(document.getElementById("root")) {
-        rechartsApp()
-        victoryApp()
+//        rechartsApp()
+//        victoryApp()
+        chartJsApp()
     }
 }

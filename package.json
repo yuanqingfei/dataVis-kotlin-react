@@ -6,7 +6,9 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "recharts": "^1.8.5",
-    "victory": "33.0.0"
+    "victory": "^33.0.0",
+    "chart.js": "^2.8.0",
+    "react-chartjs-2": "^2.8.0"
   },
   "devDependencies": {
     "react-scripts-kotlin": "4.0.1"

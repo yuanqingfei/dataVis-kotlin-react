@@ -1,5 +1,5 @@
 @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS", "EXTERNAL_DELEGATION")
-package victory
+package Chart
 
 import kotlin.js.*
 import kotlin.js.Json
@@ -16,6 +16,6 @@ import org.w3c.performance.*
 import org.w3c.workers.*
 import org.w3c.xhr.*
 
-typealias Omit<T, K> = Any
+typealias ChartTooltipPositioner = (elements: Array<Any>, eventPosition: Point) -> Point
 
-typealias VictoryStyleObject = Any
+typealias Scriptable<T> = (ctx: `T$2`) -> T
