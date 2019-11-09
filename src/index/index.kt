@@ -1,6 +1,7 @@
 package index
 
 import app.chartJsApp
+import app.chartJsSortApp
 import app.rechartsApp
 import app.victoryApp
 import kotlinext.js.*
@@ -13,6 +14,7 @@ fun main(args: Array<String>) {
     render(document.getElementById("root")) {
 //        rechartsApp()
 //        victoryApp()
-        chartJsApp()
+//        chartJsApp()
+        chartJsSortApp()
     }
 }

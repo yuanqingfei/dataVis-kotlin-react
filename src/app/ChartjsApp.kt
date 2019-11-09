@@ -1,6 +1,7 @@
 package app
 
 import chartjs.Bar
+import chartjs.HorizontalBar
 import react.RBuilder
 import react.RComponent
 import react.RProps
@@ -44,8 +45,8 @@ class ChartjsApp : RComponent<RProps, RState>() {
             var newData = [];
 
             for(var x=0; x< _this.state.labels.length; x++){
-            newData.push(Math.floor(Math.random() * 100));
-        }
+                newData.push(Math.floor(Math.random() * 100));
+            }
 
             var newDataSet = {};
             Object.assign(newDataSet, oldDataSet)
@@ -66,7 +67,7 @@ class ChartjsApp : RComponent<RProps, RState>() {
             h2{
                 +"Creazy Bar Example"
             }
-            Bar{
+            HorizontalBar{
                     attrs.data = state
             }
         }
