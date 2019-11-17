@@ -10,35 +10,65 @@ import kotlin.browser.window
 /**
  * coming from https://jsfiddle.net/fx0a6o6q/3/
  *
+ * learned from:
+ * https://github.com/jerairrest/react-chartjs-2/blob/master/example/src/components/crazyLine.js
+ * https://youtu.be/hR3QY198bb4
  * https://github.com/chartjs/Chart.js/issues/3832
  *
- * https://youtu.be/hR3QY198bb4
  */
 
 interface ChartjsSortComponentProp: RProps{
-    var chartRef : RReadableRef<Chart>?
+//    var chartReference: dynamic
 }
 
-interface ChartjsSortComponentState: RState{
-    var chartJsData: dynamic
-}
+class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, RState>() {
 
-class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, ChartjsSortComponentState>() {
-//    init {
-//        this.props.chartRef = createRef()
-//    }
+    var chartReference: dynamic = js("{}")
 
-    override fun componentDidUpdate(prevProps: ChartjsSortComponentProp, prevState: ChartjsSortComponentState, snapshot: Any) {
-    }
+    val initState: RState = js("""
+                        {
+                            labels: ['美国', '中国', '日本', '德国', '英国', '法国', '印度', '意大利', '巴西', '加拿大'],
+                            datasets: [{
+                              label: "2018",
+                              backgroundColor: [
+                                "#FF5733",
+                                "#884EA0",
+                                "#2471A3",
+                                "#17A589",
+                                "#D4AC0D",
+                                "#CA6F1E",
+                                "#BA4A00",
+                                "#F8C471",
+                                "#7FB3D5",
+                                "#C39BD3"
+                              ],
+                              data: [20494100.00, 13608151.86, 4970915.56, 3996759.29, 2825207.95, 2777535.24,
+                                2726322.62, 2073901.99, 1868626.09, 1712510.03]
+                            }]
+                        }
+                    """);
+
+
 
     override fun componentDidMount() {
+//        Chart.pluginService.register({
+//            fun beforeUpdate(chart: Chart) {
+//
+//            }
+//        })
+        console.log(chartReference);
         js("""
-            console.log("chart " + this.chartRef);
+            console.log("chart000 " + Chart);
             Chart.defaults.global.animation.duration = 3000;
-            Chart.plugins.register({
+            console.log("chart00011 " + Chart.defaults);
+            console.log("chart plugin " + Chart.pluginService);
+            console.log("chart plugins " + Chart.plugins);
+            Chart.pluginService.register({
                 beforeUpdate: function(chart) {
                   var dataArray = chart.data.datasets[0].data;
-                    console.log("chart111 " + this.chartRef);
+                    
+                    console.log("before update ");
+                    
                   var dataIndexes = dataArray.map(function (d, i) {return i});
 
                   dataIndexes.sort(function(a, b){
@@ -66,40 +96,14 @@ class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, ChartjsSortComp
                   chart.data.datasets[0].backgroundColor = newColors;
                 }
             })
-//            setInterval(function(){
-//                myChart.update();
-//            }, 3000)
         """)
 
-        window.setInterval({this.render()}, 3000)
+        window.setInterval({chartReference.chartInstance.update()}, 3000)
     }
 
-    override fun ChartjsSortComponentState.init(){
-        chartJsData = js("""
-                        {
-                            labels: ['美国', '中国', '日本', '德国', '英国', '法国', '印度', '意大利', '巴西', '加拿大'],
-                            datasets: [{
-                              label: "2018",
-                              backgroundColor: [
-                                "#FF5733",
-                                "#884EA0",
-                                "#2471A3",
-                                "#17A589",
-                                "#D4AC0D",
-                                "#CA6F1E",
-                                "#BA4A00",
-                                "#F8C471",
-                                "#7FB3D5",
-                                "#C39BD3"
-                              ],
-                              data: [20494100.00, 13608151.86, 4970915.56, 3996759.29, 2825207.95, 2777535.24,
-                                2726322.62, 2073901.99, 1868626.09, 1712510.03]
-                            }]
-                        }
-                    """)
+    override fun componentWillMount() {
+        this.setState(initState)
     }
-
-
 
     override fun RBuilder.render() {
         div("container"){
@@ -108,8 +112,10 @@ class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, ChartjsSortComp
             }
             HorizontalBar{
                 attrs{
-//                    ref = props.chartRef!!
-                    data = state.chartJsData
+                    ref {
+                        reference:dynamic -> chartReference = reference
+                    }
+                    data = state
                     options = js("""
                                     {
                                         scales: {

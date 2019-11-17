@@ -1364,8 +1364,8 @@ external open class Chart {
 }
 
 external open class PluginServiceStatic {
-    open fun register(plugin: Chart.PluginServiceGlobalRegistration /* Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions */)
-    open fun unregister(plugin: Chart.PluginServiceGlobalRegistration /* Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions */)
+    open fun register(plugin: dynamic /* Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions */)
+    open fun unregister(plugin: dynamic /* Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions */)
 }
 
 external interface Meta {
