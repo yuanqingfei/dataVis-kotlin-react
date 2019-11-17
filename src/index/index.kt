@@ -1,9 +1,6 @@
 package index
 
-import app.chartJsApp
-import app.chartJsSortApp
-import app.rechartsApp
-import app.victoryApp
+import app.*
 import kotlinext.js.*
 import react.dom.*
 import kotlin.browser.*
@@ -15,6 +12,6 @@ fun main(args: Array<String>) {
 //        rechartsApp()
 //        victoryApp()
 //        chartJsApp()
-        chartJsSortApp()
+        getChartjsSortComponent()
     }
 }

@@ -14,7 +14,7 @@
     "react-scripts-kotlin": "4.0.1"
   },
   "scripts": {
-    "start": "react-scripts-kotlin start",
+    "start": "PORT=7000 react-scripts-kotlin start",
     "build": "react-scripts-kotlin build",
     "eject": "react-scripts-kotlin eject",
     "gen-idea-libs": "react-scripts-kotlin gen-idea-libs",

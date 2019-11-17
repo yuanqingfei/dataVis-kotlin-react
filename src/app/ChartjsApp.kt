@@ -63,7 +63,7 @@ class ChartjsApp : RComponent<RProps, RState>() {
     }
 
     override fun RBuilder.render() {
-        div{
+        div(classes = "container"){
             h2{
                 +"Creazy Bar Example"
             }
