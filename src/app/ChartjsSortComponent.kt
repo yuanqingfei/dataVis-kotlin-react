@@ -2,6 +2,7 @@ package app
 
 import chartjs.Chart
 import chartjs.HorizontalBar
+import chartjs.MetaData
 import react.*
 import react.dom.div
 import react.dom.h2
@@ -11,17 +12,12 @@ import kotlin.browser.window
  * coming from https://jsfiddle.net/fx0a6o6q/3/
  *
  * learned from:
- * https://github.com/jerairrest/react-chartjs-2/blob/master/example/src/components/crazyLine.js
  * https://youtu.be/hR3QY198bb4
  * https://github.com/chartjs/Chart.js/issues/3832
  *
  */
 
-interface ChartjsSortComponentProp: RProps{
-//    var chartReference: dynamic
-}
-
-class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, RState>() {
+class ChartjsSortComponent: RComponent<RProps, RState>() {
 
     var chartReference: dynamic = js("{}")
 
@@ -47,22 +43,40 @@ class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, RState>() {
                             }]
                         }
                     """);
-
-
-
     override fun componentDidMount() {
+//        Chart.defaults.global.animation?.duration = 3000
+//        console.log("outside update ");
 //        Chart.pluginService.register({
 //            fun beforeUpdate(chart: Chart) {
+//                var dataArray = chart.data.datasets?.get(0)?.data;
 //
+//                console.log("before update ");
+//
+//                var dataIndexes = dataArray.map{d, i -> i}
+//                dataIndexes.sort{a, b -> dataArray[a] - dataArray[b]}
+//                dataArray.sort{a, b -> a - b}
+//                var meta = chart.getDatasetMeta(0);
+//                var newMeta = emptyArray<MetaData>();
+//                var labels = chart.data.labels;
+//                var newLabels = emptyArray<String>();
+//                var newColors = emptyArray<String>();
+//
+//                meta.data.mapIndexed{i, bar -> {
+//                    var newIndex = dataIndexes.indexOf(i)
+//                    newMeta[newIndex] = bar
+//                    newLabels[newIndex] = chart.data.labels?.get(i)
+//                    newColors[newIndex] = chart.data.datasets?.get(0)?.backgroundColor[i]
+//                }};
+//
+//                meta.data = newMeta;
+//                chart.data.labels = newLabels;
+//                chart.data.datasets?.get(0)?.backgroundColor = newColors
 //            }
 //        })
-        console.log(chartReference);
+//        console.log(chartReference);
+
         js("""
-            console.log("chart000 " + Chart);
             Chart.defaults.global.animation.duration = 3000;
-            console.log("chart00011 " + Chart.defaults);
-            console.log("chart plugin " + Chart.pluginService);
-            console.log("chart plugins " + Chart.plugins);
             Chart.pluginService.register({
                 beforeUpdate: function(chart) {
                   var dataArray = chart.data.datasets[0].data;
@@ -70,27 +84,21 @@ class ChartjsSortComponent: RComponent<ChartjsSortComponentProp, RState>() {
                     console.log("before update ");
                     
                   var dataIndexes = dataArray.map(function (d, i) {return i});
-
                   dataIndexes.sort(function(a, b){
                     return dataArray[a] - dataArray[b];
                   });
-
                   dataArray.sort(function(a, b){return a - b});
-
                   var meta = chart.getDatasetMeta(0);
                   var newMeta = [];
                   var labels = chart.data.labels;
                   var newLabels = [];
                   var newColors = [];
-
                   meta.data.forEach(function(bar, i) {
                     var newIndex = dataIndexes.indexOf(i);
-
                     newMeta[newIndex] = bar;
                     newLabels[newIndex] = chart.data.labels[i];
                     newColors[newIndex] = chart.data.datasets[0].backgroundColor[i];
                   });
-
                   meta.data = newMeta;
                   chart.data.labels = newLabels;
                   chart.data.datasets[0].backgroundColor = newColors;
