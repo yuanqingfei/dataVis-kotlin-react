@@ -19,6 +19,13 @@ import kotlin.browser.window
 
 class ChartjsSortComponent: RComponent<RProps, RState>() {
 
+    val animationInterval = 3000
+
+    init {
+        Chart.defaults.global.animation?.duration = animationInterval
+        Chart.defaults.global.animation?.easing = "linear"
+    }
+
     var chartReference: dynamic = js("{}")
 
     val initState: RState = js("""
@@ -45,7 +52,6 @@ class ChartjsSortComponent: RComponent<RProps, RState>() {
     """) as RState
 
     override fun componentDidMount() {
-        Chart.defaults.global.animation?.duration = 10000
         Chart.plugins.register(
             js("""
                 {
@@ -58,7 +64,6 @@ class ChartjsSortComponent: RComponent<RProps, RState>() {
                       dataArray.sort(function(a, b){return a - b});
                       var meta = chart.getDatasetMeta(0);
                       var newMeta = [];
-                      var labels = chart.data.labels;
                       var newLabels = [];
                       var newColors = [];
                       meta.data.forEach(function(bar, i) {
@@ -74,7 +79,7 @@ class ChartjsSortComponent: RComponent<RProps, RState>() {
                 }
             """)
         )
-        window.setInterval({chartReference.chartInstance.update()}, 3000)
+        window.setInterval({chartReference.chartInstance.update()}, animationInterval)
     }
 
     override fun componentWillMount() {
@@ -93,21 +98,21 @@ class ChartjsSortComponent: RComponent<RProps, RState>() {
                     }
                     data = state
                     options =
-                            js("""
-                                        {
-                                            scales: {
-                                              xAxes: [{
-                                                ticks: {
-                                                  beginAtZero: true
-                                                }
-                                              }],
-                                              yAxes: [{
-                                                barThickness: 30
-                                              }]
-                                            }
-                                        }
-                                    """)
-                                    as Chart.ChartOptions
+                        js("""
+                            {
+                                scales: {
+                                  xAxes: [{
+                                    ticks: {
+                                      beginAtZero: true
+                                    }
+                                  }],
+                                  yAxes: [{
+                                    barThickness: 30
+                                  }]
+                                }
+                            }
+                        """)
+                        as Chart.ChartOptions
                 }
             }
         }
