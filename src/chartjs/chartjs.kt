@@ -2,12 +2,10 @@
 @file:Suppress("INTERFACE_WITH_SUPERCLASS", "OVERRIDING_FINAL_MEMBER", "RETURN_TYPE_MISMATCH_ON_OVERRIDE", "CONFLICTING_OVERLOADS", "EXTERNAL_DELEGATION")
 package chartjs
 
-import d3.ArrayLike
 import kotlin.js.*
 import kotlin.js.Json
 import org.w3c.dom.*
 import org.w3c.dom.events.*
-
 
 external interface `T$0` {
     var global: Chart.ChartOptions /* Chart.ChartOptions & Chart.ChartFontOptions */
@@ -21,7 +19,7 @@ external open class Chart {
     constructor(context: String, options: Chart.ChartConfiguration)
     constructor(context: CanvasRenderingContext2D, options: Chart.ChartConfiguration)
     constructor(context: HTMLCanvasElement, options: Chart.ChartConfiguration)
-    constructor(context: ArrayLike<dynamic /* CanvasRenderingContext2D | HTMLCanvasElement */>, options: Chart.ChartConfiguration)
+    constructor(context: Array<dynamic /* CanvasRenderingContext2D | HTMLCanvasElement */>, options: Chart.ChartConfiguration)
     open var config: Chart.ChartConfiguration
     open var data: Chart.ChartData
     open var destroy: () -> Any

@@ -17,21 +17,22 @@ import org.w3c.performance.*
 import org.w3c.workers.*
 import org.w3c.xhr.*
 
+
 external fun blob(url: String, init: RequestInit? = definedExternally /* null */): Promise<Blob>
 
 external fun buffer(url: String, init: RequestInit? = definedExternally /* null */): Promise<ArrayBuffer>
 
 external fun <Columns : String> csv(url: String, init: RequestInit? = definedExternally /* null */): Promise<DSVRowArray<Columns>>
 
-external fun <ParsedRow : Any?, Columns : String> csv(url: String, row: (rawRow: Any, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
+external fun <ParsedRow : Any?, Columns : String> csv(url: String, row: (rawRow: DSVRowString<Columns>, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
 
-external fun <ParsedRow : Any?, Columns : String> csv(url: String, init: RequestInit, row: (rawRow: Any, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
+external fun <ParsedRow : Any?, Columns : String> csv(url: String, init: RequestInit, row: (rawRow: DSVRowString<Columns>, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
 
 external fun <Columns : String> dsv(delimiter: String, url: String, init: RequestInit? = definedExternally /* null */): Promise<DSVRowArray<Columns>>
 
-external fun <ParsedRow : Any?, Columns : String> dsv(delimiter: String, url: String, row: (rawRow: Any, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
+external fun <ParsedRow : Any?, Columns : String> dsv(delimiter: String, url: String, row: (rawRow: DSVRowString<Columns>, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
 
-external fun <ParsedRow : Any?, Columns : String> dsv(delimiter: String, url: String, init: RequestInit, row: (rawRow: Any, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
+external fun <ParsedRow : Any?, Columns : String> dsv(delimiter: String, url: String, init: RequestInit, row: (rawRow: DSVRowString<Columns>, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
 
 external fun html(url: String, init: RequestInit? = definedExternally /* null */): Promise<Document>
 
@@ -45,8 +46,8 @@ external fun text(url: String, init: RequestInit? = definedExternally /* null */
 
 external fun <Columns : String> tsv(url: String, init: RequestInit? = definedExternally /* null */): Promise<DSVRowArray<Columns>>
 
-external fun <ParsedRow : Any?, Columns : String> tsv(url: String, row: (rawRow: Any, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
+external fun <ParsedRow : Any?, Columns : String> tsv(url: String, row: (rawRow: DSVRowString<Columns>, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
 
-external fun <ParsedRow : Any?, Columns : String> tsv(url: String, init: RequestInit, row: (rawRow: Any, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
+external fun <ParsedRow : Any?, Columns : String> tsv(url: String, init: RequestInit, row: (rawRow: DSVRowString<Columns>, index: Number, columns: Array<Columns>) -> ParsedRow?): Promise<DSVParsedArray<ParsedRow>>
 
 external fun xml(url: String, init: RequestInit? = definedExternally /* null */): Promise<XMLDocument>
