@@ -5,8 +5,8 @@
   "dependencies": {
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "recharts": "^1.8.5",
-    "victory": "^33.0.0",
+    "recharts": "^2.1.14",
+    "victory": "^36.6.8",
     "chart.js": "^2.9.4",
     "react-chartjs-2": "^2.8.0"
   },
